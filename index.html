@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>thisissad</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <p>
+                This data analyzes the data from the S3 and the S4 in the iLMS. You really need to take to account
+                that S3 had one extra week for the fist time and that S4 is not even halfway. The data from the S4
+                is from 16/10/2020 at 22:00
+            </p>
+        </div>
+    </div>
+    <!--totals-->
+    <div class="row mt-4">
+        <div class="col-sm-6 text-center">
+            <h2>Total average irating</h2>
+            <canvas id="totalaverageirating" width="400" height="400"></canvas>
+        </div>
+        <div class="col-sm-6 text-center">
+            <h2>Total average incidents</h2>
+            <canvas id="totalaverageincidents" width="400" height="400"></canvas>
+        </div>
+    </div>
+
+    <!--Lmp1-->
+    <div class="row mt-4">
+        <div class="col-sm-6 text-center">
+            <h2>People driving LMP1</h2>
+            <canvas id="averagelmp1iraring" width="400" height="400"></canvas>
+        </div>
+        <div class="col-sm-6 text-center">
+            <h2>Average incidents in LMP1</h2>
+            <canvas id="averagelmp1incidents" width="400" height="400"></canvas>
+        </div>
+    </div>
+
+    <!--Lmp2-->
+    <div class="row mt-4">
+        <div class="col-sm-6 text-center">
+            <h2>People driving LMP2</h2>
+            <canvas id="averagelmp2irating" width="400" height="400"></canvas>
+        </div>
+        <div class="col-sm-6 text-center">
+            <h2>Average incidents in LMP2</h2>
+            <canvas id="averagelmp2incidents" width="400" height="400"></canvas>
+        </div>
+    </div>
+
+    <!-- GTE --->
+    <div class="row mt-4">
+        <div class="col-sm-6 text-center">
+            <h2>People driving GTE</h2>
+            <canvas id="averagegteirating" width="400" height="400"></canvas>
+        </div>
+        <div class="col-sm-6 text-center">
+            <h2>Average incidents in GTE</h2>
+            <canvas id="averagegteincidents" width="400" height="400"></canvas>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-sm-12 text-center">
+            <p>
+                Just in case you don't want to do the math: <br>
+                20S3: A total of 1992 people race at least one race with the lmp1, 2454 with the lmp2 and 9460 with the GTE
+                <br>
+                20S4: A total of 808 peole race at least one race with the lmp1, 3967 with the lmp2 and 4514 with the GTE
+            </p>
+        </div>
+    </div>
+</div>
+<script>
+    //average iratings
+    let totalaverageirating = document.getElementById('totalaverageirating').getContext('2d');
+    let totalaverageiratings = new Chart(totalaverageirating, {
+        type: 'bar',
+        data: {
+            labels: ['LMP1', 'LMP2', 'GTE'],
+            datasets: [
+                {
+                    label: '20S3',
+                    data: [1992, 2334, 2039],
+                    backgroundColor: [
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1
+                },
+                {
+                    label: '20S4',
+                    data: [1938, 2246, 1976],
+                    backgroundColor: [
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {scales: {yAxes: [{ticks: {beginAtZero: true}}]}}
+    });
+
+    //average incidents
+    let totalaverageincident = document.getElementById('totalaverageincidents').getContext('2d');
+    let totalaverageincidents = new Chart(totalaverageincident, {
+        type: 'bar',
+        data: {
+            labels: ['LMP1', 'LMP2', 'GTE'],
+            datasets: [
+                {
+                    label: '20S3',
+                    data: [7.5, 7.2, 8.7],
+                    backgroundColor: [
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1
+                },
+                {
+                    label: '20S4',
+                    data: [7.9, 8.6, 8.8],
+                    backgroundColor: [
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {scales: {yAxes: [{ticks: {beginAtZero: true}}]}}
+    });
+
+    //LMP1 iratings
+    let averagelmp1irating = document.getElementById('averagelmp1iraring').getContext('2d');
+    let averagelmp1iratings = new Chart(averagelmp1irating, {
+        type: 'bar',
+        data: {
+            labels: ["-1000's", "1000's", "2000's", "3000's", "4000's", "5000's", "+6000's"],
+            datasets: [
+                {
+                    label: '20S3',
+                    data: [162, 926, 576, 189, 89, 25, 24],
+                    backgroundColor: [
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 206, 86, 1)',
+                    ],
+                    borderWidth: 1
+                },
+                {
+                    label: '20S4',
+                    data: [96, 418, 189, 67, 30, 7, 1],
+                    backgroundColor: [
+                        'rgba(245, 206, 20, 0.2)',
+                        'rgba(245, 206, 20, 0.2)',
+                        'rgba(245, 206, 20, 0.2)',
+                        'rgba(245, 206, 20, 0.2)',
+                        'rgba(245, 206, 20, 0.2)',
+                        'rgba(245, 206, 20, 0.2)',
+                        'rgba(245, 206, 20, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(245, 206, 20, 1)',
+                        'rgba(245, 206, 20, 1)',
+                        'rgba(245, 206, 20, 1)',
+                        'rgba(245, 206, 20, 1)',
+                        'rgba(245, 206, 20, 1)',
+                        'rgba(245, 206, 20, 1)',
+                        'rgba(245, 206, 20, 1)',
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {scales: {yAxes: [{ticks: {beginAtZero: true}}]}}
+    });
+
+    //LMP1 incidents
+    let averagelmp1incident = document.getElementById('averagelmp1incidents').getContext('2d');
+    let averagelmp1incidents = new Chart(averagelmp1incident, {
+        type: 'bar',
+        data: {
+            labels: ["-1000's", "1000's", "2000's", "3000's", "4000's", "5000's", "+6000's"],
+            datasets: [
+                {
+                    label: '20S3',
+                    data: [7.5, 8.5, 6.9, 6.0, 5.5, 4.5, 3.9],
+                    backgroundColor: [
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 206, 86, 1)',
+                    ],
+                    borderWidth: 1
+                },
+                {
+                    label: '20S4',
+                    data: [7.3, 8.9, 7.0, 6.0, 5.6, 4.9, 1.0],
+                    backgroundColor: [
+                        'rgba(245, 206, 20, 0.2)',
+                        'rgba(245, 206, 20, 0.2)',
+                        'rgba(245, 206, 20, 0.2)',
+                        'rgba(245, 206, 20, 0.2)',
+                        'rgba(245, 206, 20, 0.2)',
+                        'rgba(245, 206, 20, 0.2)',
+                        'rgba(245, 206, 20, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(245, 206, 20, 1)',
+                        'rgba(245, 206, 20, 1)',
+                        'rgba(245, 206, 20, 1)',
+                        'rgba(245, 206, 20, 1)',
+                        'rgba(245, 206, 20, 1)',
+                        'rgba(245, 206, 20, 1)',
+                        'rgba(245, 206, 20, 1)',
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {scales: {yAxes: [{ticks: {beginAtZero: true}}]}}
+    });
+
+    //LMP2 incidents
+    let averagelmp2incident = document.getElementById('averagelmp2incidents').getContext('2d');
+    let averagelmp2incidents = new Chart(averagelmp2incident, {
+        type: 'bar',
+        data: {
+            labels: ["-1000's", "1000's", "2000's", "3000's", "4000's", "5000's", "+6000's"],
+            datasets: [
+                {
+                    label: '20S3',
+                    data: [7.8, 7.9, 6.8, 6.6, 6.0, 5.3, 3.9],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)',
+                    ],
+                    borderWidth: 1
+                },
+                {
+                    label: '20S4',
+                    data: [9.3, 9.4, 8.1, 7.6, 7.2, 6.4, 5.5],
+                    backgroundColor: [
+                        'rgba(45, 162, 225, 0.2)',
+                        'rgba(45, 162, 225, 0.2)',
+                        'rgba(45, 162, 225, 0.2)',
+                        'rgba(45, 162, 225, 0.2)',
+                        'rgba(45, 162, 225, 0.2)',
+                        'rgba(45, 162, 225, 0.2)',
+                        'rgba(45, 162, 225, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(45, 162, 225, 1)',
+                        'rgba(45, 162, 225, 1)',
+                        'rgba(45, 162, 225, 1)',
+                        'rgba(45, 162, 225, 1)',
+                        'rgba(45, 162, 225, 1)',
+                        'rgba(45, 162, 225, 1)',
+                        'rgba(45, 162, 225, 1)',
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {scales: {yAxes: [{ticks: {beginAtZero: true}}]}}
+    });
+
+    //lmp2 irating
+    let averagelmp2irating = document.getElementById('averagelmp2irating').getContext('2d');
+    let averagelmp2iratings = new Chart(averagelmp2irating, {
+        type: 'bar',
+        data: {
+            labels: ["-1000's", "1000's", "2000's", "3000's", "4000's", "5000's", "+6000's"],
+            datasets: [
+                {
+                    label: '20S3',
+                    data: [131, 1035, 777, 267, 139, 62, 39],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)',
+                    ],
+                    borderWidth: 1
+                },
+                {
+                    label: '20S4',
+                    data: [184, 1779, 1327, 384, 149, 75, 59],
+                    backgroundColor: [
+                        'rgba(45, 162, 225, 0.2)',
+                        'rgba(45, 162, 225, 0.2)',
+                        'rgba(45, 162, 225, 0.2)',
+                        'rgba(45, 162, 225, 0.2)',
+                        'rgba(45, 162, 225, 0.2)',
+                        'rgba(45, 162, 225, 0.2)',
+                        'rgba(45, 162, 225, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(45, 162, 225, 1)',
+                        'rgba(45, 162, 225, 1)',
+                        'rgba(45, 162, 225, 1)',
+                        'rgba(45, 162, 225, 1)',
+                        'rgba(45, 162, 225, 1)',
+                        'rgba(45, 162, 225, 1)',
+                        'rgba(45, 162, 225, 1)',
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {scales: {yAxes: [{ticks: {beginAtZero: true}}]}}
+    });
+
+    //GTE irating
+    let averagegteirating = document.getElementById('averagegteirating').getContext('2d');
+    let averagegteiratings = new Chart(averagegteirating, {
+        type: 'bar',
+        data: {
+            labels: ["-1000's", "1000's", "2000's", "3000's", "4000's", "5000's", "+6000's"],
+            datasets: [
+                {
+                    label: '20S3',
+                    data: [671, 4988, 2600, 696, 286, 108, 98],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1
+                },
+                {
+                    label: '20S4',
+                    data: [389, 2423, 1222, 270, 110, 55, 39],
+                    backgroundColor: [
+                        'rgba(245, 99, 120, 0.2)',
+                        'rgba(245, 99, 120, 0.2)',
+                        'rgba(245, 99, 120, 0.2)',
+                        'rgba(245, 99, 120, 0.2)',
+                        'rgba(245, 99, 120, 0.2)',
+                        'rgba(245, 99, 120, 0.2)',
+                        'rgba(245, 99, 120, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(245, 99, 120, 1)',
+                        'rgba(245, 99, 120, 1)',
+                        'rgba(245, 99, 120, 1)',
+                        'rgba(245, 99, 120, 1)',
+                        'rgba(245, 99, 120, 1)',
+                        'rgba(245, 99, 120, 1)',
+                        'rgba(245, 99, 120, 1)',
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {scales: {yAxes: [{ticks: {beginAtZero: true}}]}}
+    });
+
+    //GTE incidents
+    let averagegteincident = document.getElementById('averagegteincidents').getContext('2d');
+    let averagegteincidents = new Chart(averagegteincident, {
+        type: 'bar',
+        data: {
+            labels: ["-1000's", "1000's", "2000's", "3000's", "4000's", "5000's", "+6000's"],
+            datasets: [
+                {
+                    label: '20S3',
+                    data: [8.5, 9.2, 8.3, 8.0, 7.8, 7.4, 7.3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1
+                },
+                {
+                    label: '20S4',
+                    data: [9.3, 9.2, 8.2, 7.7, 7.4, 7.2, 6.8],
+                    backgroundColor: [
+                        'rgba(245, 99, 120, 0.2)',
+                        'rgba(245, 99, 120, 0.2)',
+                        'rgba(245, 99, 120, 0.2)',
+                        'rgba(245, 99, 120, 0.2)',
+                        'rgba(245, 99, 120, 0.2)',
+                        'rgba(245, 99, 120, 0.2)',
+                        'rgba(245, 99, 120, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(245, 99, 120, 1)',
+                        'rgba(245, 99, 120, 1)',
+                        'rgba(245, 99, 120, 1)',
+                        'rgba(245, 99, 120, 1)',
+                        'rgba(245, 99, 120, 1)',
+                        'rgba(245, 99, 120, 1)',
+                        'rgba(245, 99, 120, 1)',
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {scales: {yAxes: [{ticks: {beginAtZero: true}}]}}
+    });
+
+    //20s3 un total de 1992 personas corrieron con el lmp1
+    //20s3 un total de 2454 personas corrieron con el lmp2
+    //20s3 un total de 9460 personas corrieron con el gte
+
+    //20s4 un total de 808 personas con el lmp1
+    //total con el gte 4514
+    //total con el lmp2 3967
+</script>
+</body>
+</html>
